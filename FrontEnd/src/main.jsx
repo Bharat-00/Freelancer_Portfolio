@@ -1,30 +1,23 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import ReactDOM from 'react-dom/client';
+import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
 import './index.css';
+import Home from './pages/Home';
+import About from './pages/About';
 
 function App() {
-  const [profile, setProfile] = useState(null);
-
-  useEffect(() => {
-    fetch('http://localhost:5000/api/profile')
-      .then((res) => res.json())
-      .then((data) => setProfile(data))
-      .catch((err) => console.error('Error fetching profile:', err));
-  }, []);
-
   return (
-    <div>
-      <h1>Influencers Portfolio</h1>
-      {profile ? (
-        <div>
-          <h2>{profile.name}</h2>
-          <p>Followers: {profile.followers}</p>
-          <p>Category: {profile.category}</p>
-        </div>
-      ) : (
-        <p>Loading profile...</p>
-      )}
-    </div>
+    <BrowserRouter>
+      <nav className="navbar">
+        <Link to="/">Home</Link>
+        <Link to="/about">About</Link>
+      </nav>
+
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/about" element={<About />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 
