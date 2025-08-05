@@ -2,6 +2,7 @@ import React from 'react';
 import Navbar from '../components/Navbar';
 import ProfileCard from '../components/ProfileCard';
 import './Home.css';
+import Footer from '../components/Footer';
 
 const Home = () => {
   const profiles = [
@@ -20,15 +21,17 @@ const Home = () => {
   ];
 
   return (
-    <>
-      <Navbar />
-      <div className="profile-container">
-        {profiles.map((profile, index) => (
-          <ProfileCard key={index} {...profile} />
-        ))}
-      </div>
-    </>
-  );
+  <>
+    <Navbar />
+    <div className="profile-container">
+      {profiles.map((profile, index) => (
+        <ProfileCard key={index} {...profile} />
+      ))}
+    </div>
+    <Footer />
+  </>
+);
 };
 
 export default Home;
+
