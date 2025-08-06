@@ -2,12 +2,24 @@
   padding: 2rem;
 }
 
-.search-input {
+.filters {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+@media (min-width: 600px) {
+  .filters {
+    flex-direction: row;
+    justify-content: center;
+  }
+}
+
+.search-input,
+.category-select {
   padding: 10px 16px;
-  width: 100%;
-  max-width: 400px;
-  margin: 0 auto 2rem auto;
-  display: block;
   font-size: 1rem;
   border: 1px solid #ccc;
   border-radius: 8px;

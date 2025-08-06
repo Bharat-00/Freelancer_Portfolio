@@ -5,6 +5,7 @@ import './index.css';
 import Home from './pages/Home';
 import About from './pages/About';
 import ProfileDetail from './pages/ProfileDetail';
+import Login from './pages/Login';
 
 function App() {
   return (
@@ -15,10 +16,11 @@ function App() {
       </nav>
 
       <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/about" element={<About />} />
-        <Route path="/profile/:id" element={<ProfileDetail />} />
-      </Routes>
+  <Route path="/" element={<Home />} />
+  <Route path="/about" element={<About />} />
+  <Route path="/profile/:id" element={<ProfileDetail />} />
+  <Route path="/login" element={<Login />} />
+</Routes>
     </BrowserRouter>
   );
 }

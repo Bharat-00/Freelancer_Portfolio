@@ -12,20 +12,26 @@ const Home = () => {
   const [error, setError] = useState('');
 
   useEffect(() => {
-    fetch('http://localhost:5000/api/profile')
-      .then((res) => {
-        if (!res.ok) throw new Error('Failed to fetch profiles');
-        return res.json();
-      })
-      .then((data) => {
-        setProfiles(data);
-        setLoading(false);
-      })
-      .catch((err) => {
-        setError(err.message);
-        setLoading(false);
-      });
-  }, []);
+  const url = new URL('http://localhost:5000/api/profile');
+  url.searchParams.set('search', search);
+  url.searchParams.set('category', category);
+
+  setLoading(true);
+  fetch(url.toString())
+    .then((res) => {
+      if (!res.ok) throw new Error('Failed to fetch profiles');
+      return res.json();
+    })
+    .then((data) => {
+      setProfiles(data);
+      setLoading(false);
+    })
+    .catch((err) => {
+      setError(err.message);
+      setLoading(false);
+    });
+}, [search, category]);
+
 
   const categories = ['All', ...new Set(profiles.map(p => p.category))];
 

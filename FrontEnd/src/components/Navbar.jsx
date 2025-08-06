@@ -1,17 +1,48 @@
-import React from 'react';
-import './Navbar.css';
+import { Link } from 'react-router-dom';
 
-const Navbar = () => {
+export default function Navbar() {
   return (
-    <nav className="navbar">
-      <div className="navbar-logo">Influencers Portfolio</div>
-      <ul className="navbar-links">
-        <li><a href="#">Home</a></li>
-        <li><a href="#">Profiles</a></li>
-        <li><a href="#">Contact</a></li>
-      </ul>
+    <nav style={styles.nav}>
+      <div style={styles.brand}>
+        <Link to="/" style={styles.link}>
+          Influencers
+        </Link>
+      </div>
+      <div style={styles.links}>
+        <Link to="/" style={styles.link}>
+          Home
+        </Link>
+        <Link to="/about" style={styles.link}>
+          About
+        </Link>
+        <Link to="/login" style={styles.link}>
+          Login
+        </Link>
+      </div>
     </nav>
   );
-};
+}
 
-export default Navbar;
+const styles = {
+  nav: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    padding: '1rem 2rem',
+    backgroundColor: '#333',
+    color: '#fff',
+  },
+  brand: {
+    fontSize: '1.5rem',
+    fontWeight: 'bold',
+  },
+  links: {
+    display: 'flex',
+    gap: '1.5rem',
+  },
+  link: {
+    color: '#fff',
+    textDecoration: 'none',
+    fontSize: '1rem',
+  },
+};
