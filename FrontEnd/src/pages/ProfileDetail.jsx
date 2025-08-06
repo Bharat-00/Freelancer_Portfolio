@@ -1,51 +1,47 @@
 import { useParams } from 'react-router-dom';
+import { useEffect, useState } from 'react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
-
-const mockProfiles = [
-  {
-    id: 1,
-    name: 'Aarav Mehta',
-    username: '@aarav_lifestyle',
-    bio: 'Fitness and lifestyle influencer with a passion for health and travel.',
-    image: 'https://via.placeholder.com/400x250',
-    category: 'Fitness'
-  },
-  {
-    id: 2,
-    name: 'Riya Kapoor',
-    username: '@riya_makeup',
-    bio: 'Beauty content creator sharing daily makeup tutorials and tips.',
-    image: 'https://via.placeholder.com/400x250',
-    category: 'Beauty'
-  }
-];
+import './ProfileDetail.css';
 
 export default function ProfileDetail() {
   const { id } = useParams();
-  const profile = mockProfiles.find((p) => p.id.toString() === id);
+  const [profile, setProfile] = useState(null);
+  const [error, setError] = useState('');
 
-  if (!profile) {
-    return (
-      <>
-        <Navbar />
-        <div style={{ padding: '2rem', textAlign: 'center' }}>
-          <h2>Profile not found</h2>
-        </div>
-        <Footer />
-      </>
-    );
-  }
+  useEffect(() => {
+    fetch(`http://localhost:5000/api/profile/${id}`)
+      .then((res) => {
+        if (!res.ok) {
+          throw new Error('Profile not found');
+        }
+        return res.json();
+      })
+      .then((data) => setProfile(data))
+      .catch((err) => setError(err.message));
+  }, [id]);
 
   return (
     <>
       <Navbar />
-      <div style={{ padding: '2rem', textAlign: 'center' }}>
-        <img src={profile.image} alt={profile.name} style={{ width: '300px', borderRadius: '12px' }} />
-        <h2>{profile.name}</h2>
-        <p>{profile.username}</p>
-        <p>{profile.category}</p>
-        <p>{profile.bio}</p>
+      <div className="profile-detail">
+        {error ? (
+          <h2>{error}</h2>
+        ) : profile ? (
+          <>
+            <img
+              src={`https://via.placeholder.com/400x250?text=${encodeURIComponent(profile.name)}`}
+              alt={profile.name}
+              style={{ borderRadius: '12px' }}
+            />
+            <h2>{profile.name}</h2>
+            <p>@{profile.username}</p>
+            <p>{profile.category}</p>
+            <p>{profile.bio || 'No bio available.'}</p>
+          </>
+        ) : (
+          <p>Loading...</p>
+        )}
       </div>
       <Footer />
     </>

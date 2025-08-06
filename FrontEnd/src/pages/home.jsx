@@ -24,10 +24,10 @@ const Home = () => {
   <>
     <Navbar />
     <div className="profile-container">
-      {profiles.map((profile, index) => (
-        <ProfileCard key={index} {...profile} />
-      ))}
-    </div>
+  {profiles.map((profile, index) => (
+    <ProfileCard key={index} {...profile} />
+  ))}
+</div>
     <Footer />
   </>
 );
